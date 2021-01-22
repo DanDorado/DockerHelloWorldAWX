@@ -1,2 +1,0 @@
-centosHost ansible_host=192.168.1.184 ansible_connection=ssh ansible_user=osboxes ansible_ssh_pass=osboxes.org ansible_become_pass=osboxes.org
-fleetcorRedHat ansible_host=10.77.77.83 ansible_connection=ssh ansible_user=tdudley ansible_ssh_pass=Fleetcor2021 ANSIBLE_BECOME_ASK_PASS=true ansible_become_pass=Fleetcor2021
