@@ -1,0 +1,8 @@
+# Get into the Red Hat server and run simple docker stuff
+---
+
+- name: Connect to RedHat server and run docker 'hello world'
+  hosts: centosHost
+  roles:
+    - { role: installDockerAndCompose, tags: [ 'never', 'installDocker' ] }
+    - { role: hello-world }

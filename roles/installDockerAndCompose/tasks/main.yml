@@ -1,0 +1,58 @@
+# Install Docker and Docker-compose on Centos
+---
+
+- name: Install the Dependencies
+  yum:
+    name: "{{  item  }}"
+    state: latest
+  loop:
+    - yum-utils
+    - device-mapper-persistent-data
+    - lvm2
+    - python36
+    - python36-setuptools
+  become: yes
+
+- name: explicitly install pip3
+  shell: easy_install-3.6 pip
+  become: yes
+
+- name: add the stable repo
+  command: yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+  become: yes
+
+- name: Install Docker tool
+  pip:
+    name: docker
+    state: latest
+    executable: pip3.6
+  become: yes
+
+- name: Install docker itself
+  shell: curl -sSL https://get.docker.com/ | sh
+  become: yes
+
+- name: Start Docker
+  service:
+    name: docker
+    state: started
+    enabled: yes
+  become: yes
+
+- name: Install docker-compose
+  shell: curl -L https://github.com/docker/compose/releases/download/1.27.4/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+  become: yes
+
+- name: mod the install
+  command: chmod +x /usr/local/bin/docker-compose
+  become: yes
+
+- name: Check to see if docker-compose is in path
+  stat:
+    path: /usr/bin/docker-compose
+  register: stat_result
+
+- name: add to path
+  command: ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+  become: yes
+  when: not stat_result.stat.exists

@@ -1,0 +1,25 @@
+# Tasks for running the "hello-world" alpine image in docker
+---
+- name: check echo
+  shell: echo 'hello'
+  register: hello
+
+- name: check if it ran
+  debug:
+    msg: '{{ hello.stdout }}'
+
+- name: sudo docker run alpine hello-world
+  command: docker container run alpine echo "hello from alpine"
+  become: yes
+  register: string
+
+#- name: sudo docker run alpine hello-world with pexpect
+#  expect:
+#    command: sudo docker container run alpine echo "hello from alpine"
+#    responses:
+#      (?i)password: Fleetcor2021
+#  register: string
+
+- name: check if it ran
+  debug:
+    msg: '{{ string.stdout }}'
