@@ -2,6 +2,7 @@
 ---
 
 - name: Connect to RedHat server and run docker 'hello world'
+  hosts: all
   roles:
     - { role: installDockerAndCompose, tags: [ 'never', 'installDocker' ] }
     - { role: hello-world }
