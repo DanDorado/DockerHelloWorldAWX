@@ -9,7 +9,7 @@
     msg: '{{ hello.stdout }}'
 
 - name: sudo docker run alpine hello-world
-  command: docker container run -rm alpine echo "hello from alpine"
+  command: docker container run --rm alpine echo "hello from alpine"
   become: yes
   register: string
 
